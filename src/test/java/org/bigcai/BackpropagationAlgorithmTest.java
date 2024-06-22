@@ -25,7 +25,7 @@ public class BackpropagationAlgorithmTest {
         List<BigDecimal> features = new ArrayList<>();
         features.add(new BigDecimal(0.5));
         features.add(new BigDecimal(0.1));
-        BigDecimal actualValue = new BigDecimal(0.9);
+        BigDecimal actualValue = new BigDecimal(0.64);
 
         List<BigDecimal> activationVal = multiLayerNeuralNetwork.compute(features);
         System.out.println("BBBBBBBB训练前预估值：" + activationVal);
