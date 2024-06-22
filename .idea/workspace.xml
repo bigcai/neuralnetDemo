@@ -4,7 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76b31af4-15c6-49ec-9909-50ec0bf4c208" name="Changes" comment="" />
+    <list default="true" id="76b31af4-15c6-49ec-9909-50ec0bf4c208" name="Changes" comment="feat: init">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/BackpropagationAlgorithm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/MeanSquareError.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/MultiLayerNeuralNetwork.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/SingleLayerNeuralNetwork.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/error/function/ErrorFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/bigcai/MeanSquareErrorTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/bigcai/MultiLayerNeuralNetworkTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/bigcai/NeuralUnitTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/bigcai/SingleLayerNeuralNetworkTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bigcai/NeuralUnit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/NeuralUnit.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,9 +30,36 @@
       <ProjectState />
     </projectState>
   </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="neuralnetDemo" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="2hmFYnxkSammuOCL0mAcLJl7Rbl" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -26,15 +68,115 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Gradle.neuralnetDemo [:MeanSquareErrorTest.main()].executor": "Run",
+    "Gradle.neuralnetDemo [:NeuralUnitTest.main()].executor": "Run",
+    "Gradle.neuralnetDemo [:SingleLayerNeuralNetworkTest.main()].executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/caisz/onedrive/neuralnetDemo",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "onboarding.tips.debug.path": "D:/caisz/OneDrive/neuralnetDemo/src/main/java/org/bigcai/Main.java",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RebelAgentSelection">
     <selection>jr</selection>
+  </component>
+  <component name="RunManager" selected="Application.MeanSquareErrorTest">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.bigcai.Main" />
+      <module name="neuralnetDemo.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.bigcai.error.function.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MeanSquareErrorTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.bigcai.MeanSquareErrorTest" />
+      <module name="neuralnetDemo.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.bigcai.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MultiLayerNeuralNetworkTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.bigcai.MultiLayerNeuralNetworkTest" />
+      <module name="neuralnetDemo.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.bigcai.error.function.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NeuralUnitTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.bigcai.NeuralUnitTest" />
+      <module name="neuralnetDemo.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.bigcai.error.function.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SingleLayerNeuralNetworkTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.bigcai.SingleLayerNeuralNetworkTest" />
+      <module name="neuralnetDemo.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.bigcai.error.function.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.MeanSquareErrorTest" />
+        <item itemvalue="Application.MultiLayerNeuralNetworkTest" />
+        <item itemvalue="Application.SingleLayerNeuralNetworkTest" />
+        <item itemvalue="Application.NeuralUnitTest" />
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-11.0.22-corretto-11.0.22-f644763e9732-4a89cc43" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -44,9 +186,38 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1718191400225</updated>
-      <workItem from="1718191401193" duration="3000" />
+      <workItem from="1718191401193" duration="9355000" />
+      <workItem from="1718257957850" duration="575000" />
+      <workItem from="1718545498155" duration="77000" />
+      <workItem from="1718545583372" duration="218000" />
+      <workItem from="1718623102017" duration="7266000" />
+      <workItem from="1719058378862" duration="2802000" />
     </task>
+    <task id="LOCAL-00001" summary="feat: init">
+      <option name="closed" value="true" />
+      <created>1718193084201</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1718193084201</updated>
+    </task>
+    <task id="LOCAL-00002" summary="feat: init">
+      <option name="closed" value="true" />
+      <created>1719061236576</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1719061236576</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat: init" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: init" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -56,6 +227,19 @@
           <line>15</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/bigcai/BackpropagationAlgorithm.java</url>
+          <line>14</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="2" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.ArithmeticException" package="java.lang" />
+          <option name="timeStamp" value="3" />
+        </breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
