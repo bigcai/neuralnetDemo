@@ -1,46 +1,76 @@
 package org.bigcai;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.bigcai.NeuralUnit.SCALE;
+
 public class BackpropagationAlgorithmTest {
     public static void main(String[] args) {
-        MultiLayerNeuralNetwork multiLayerNeuralNetwork = buildMultiLayerNeuralNetwork();
+        // 利用反向传播算法计算多层神经网络中每个神经元的误差值
+        BackpropagationAlgorithm backpropagationAlgorithm = new BackpropagationAlgorithm();
 
+        MultiLayerNeuralNetwork multiLayerNeuralNetwork = buildMultiLayerNeuralNetwork();
+        for (int i = 0; i < 10000; i++) {
+            tranModel(multiLayerNeuralNetwork, backpropagationAlgorithm);
+        }
+        tranModel(multiLayerNeuralNetwork, backpropagationAlgorithm);
+
+
+    }
+
+    private static void tranModel(MultiLayerNeuralNetwork multiLayerNeuralNetwork, BackpropagationAlgorithm backpropagationAlgorithm) {
         List<BigDecimal> features = new ArrayList<>();
         features.add(new BigDecimal(0.5));
         features.add(new BigDecimal(0.1));
-        List<BigDecimal> activationVal = multiLayerNeuralNetwork.compute(features);
-        System.out.println(activationVal);
+        BigDecimal actualValue = new BigDecimal(0.9);
 
-        // 利用反向传播算法计算多层神经网络中每个神经元的误差值
-        BackpropagationAlgorithm backpropagationAlgorithm = new BackpropagationAlgorithm();
-        List<BigDecimal> errorSource = new ArrayList<>();
-        BigDecimal actualValue = new BigDecimal(1);
-        for (BigDecimal estimatedValue : activationVal) {
-            errorSource.add(estimatedValue.subtract(actualValue));
-        }
+        List<BigDecimal> activationVal = multiLayerNeuralNetwork.compute(features);
+        System.out.println("BBBBBBBB训练前预估值：" + activationVal);
+
+        /*// 打印更新前的权重
+        System.out.println("=========打印更新前的权重=========");
+        for (SingleLayerNeuralNetwork singleLayerNeuralNetwork: multiLayerNeuralNetwork.singleLayerNeuralNetworkList) {
+            for (NeuralUnit neuralUnit: singleLayerNeuralNetwork.layer) {
+                System.out.println(neuralUnit.weightVector);
+            }
+            System.out.println("==================");
+        }*/
+        // 更新神经元的误差项，打印误差项
+        List<BigDecimal> errorSource = computeError(activationVal, actualValue);
         backpropagationAlgorithm.computeMultiNeuralNetworkError(multiLayerNeuralNetwork, errorSource);
+        /*System.out.println("======打印误差项===============");
+
         for (SingleLayerNeuralNetwork singleLayerNeuralNetwork: multiLayerNeuralNetwork.singleLayerNeuralNetworkList) {
             System.out.println(singleLayerNeuralNetwork.errorOfErrorSourceLayer);
         }
+        System.out.println("========================");*/
 
-        System.out.println("==================");
-        for (SingleLayerNeuralNetwork singleLayerNeuralNetwork: multiLayerNeuralNetwork.singleLayerNeuralNetworkList) {
-            for (NeuralUnit neuralUnit: singleLayerNeuralNetwork.layer) {
-                System.out.println(neuralUnit.weightVector);
-            }
-            System.out.println("==================");
-        }
+        // 更新前的权重
         backpropagationAlgorithm.updateMultiNeuralNetworkWeight(multiLayerNeuralNetwork);
-        System.out.println("==================");
+        // 更新后的权重
+        /*System.out.println("========更新后的权重==========");
         for (SingleLayerNeuralNetwork singleLayerNeuralNetwork: multiLayerNeuralNetwork.singleLayerNeuralNetworkList) {
             for (NeuralUnit neuralUnit: singleLayerNeuralNetwork.layer) {
                 System.out.println(neuralUnit.weightVector);
             }
             System.out.println("==================");
+        }*/
+
+        activationVal = multiLayerNeuralNetwork.compute(features);
+        System.out.println("EEEEEEEEE训练后预估值：" + activationVal);
+
+    }
+
+    private static List<BigDecimal> computeError(List<BigDecimal> activationVal, BigDecimal actualValue) {
+        List<BigDecimal> errorSource = new ArrayList<>();
+        for (BigDecimal estimatedValue : activationVal) {
+            errorSource.add(estimatedValue.subtract(actualValue).setScale(SCALE, RoundingMode.HALF_UP));
         }
+        System.out.println("loss value: " + errorSource);
+        return errorSource;
     }
 
     private static MultiLayerNeuralNetwork buildMultiLayerNeuralNetwork() {

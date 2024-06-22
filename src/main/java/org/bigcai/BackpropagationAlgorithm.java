@@ -110,9 +110,13 @@ public class BackpropagationAlgorithm {
         // 既然是反向传播，那当然是从最后一层神经元开始计算了
         for (int i = multiLayer.singleLayerNeuralNetworkList.size() - 1; i >= 0; i--) {
             SingleLayerNeuralNetwork singleLayer = multiLayer.singleLayerNeuralNetworkList.get(i);
+            // 重置该层的误差项列表
+            singleLayer.errorOfErrorSourceLayer.clear();
+            // 计算每一个神经元的误差项
             for (int neuralUnitIndex = 0; neuralUnitIndex < singleLayer.layer.size(); neuralUnitIndex++) {
                 NeuralUnit currentNeuralUnit = singleLayer.layer.get(neuralUnitIndex);
                 BigDecimal currentNeuralUnitError = computeCurrentNeuralUnitError(neuralUnitIndex, currentNeuralUnit, lastLay);
+                currentNeuralUnitError = currentNeuralUnitError.setScale(SCALE, RoundingMode.HALF_UP);
                 singleLayer.errorOfErrorSourceLayer.add(currentNeuralUnitError);
             }
             lastLay = singleLayer;

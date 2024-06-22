@@ -9,7 +9,7 @@ import java.util.List;
  * 神经元
  */
 public class NeuralUnit {
-    public static final int SCALE = 4;
+    public static final int SCALE = 6;
     /**
      * 神经元的特征接收器（一个向量列表, 也可以理解为是上层输出的激活值）
      */
@@ -33,7 +33,7 @@ public class NeuralUnit {
      */
     public NeuralUnit(List<BigDecimal> weightVectorInit, BigDecimal offset) {
 
-        for (BigDecimal weightInit: weightVectorInit) {
+        for (BigDecimal weightInit : weightVectorInit) {
             weightInit = weightInit.setScale(SCALE, RoundingMode.HALF_UP);
             weightVector.add(weightInit);
         }
@@ -50,6 +50,7 @@ public class NeuralUnit {
         readFeature(inputFeatures);
 
         // 求和
+        sum = new BigDecimal(0);
         for (int i = 0; i < inputFeatureVector.size(); i++) {
             sum = sum.add(inputFeatureVector.get(i).multiply(weightVector.get(i)));
         }
@@ -61,15 +62,26 @@ public class NeuralUnit {
     }
 
     private BigDecimal activationFunction(BigDecimal sum) {
-        BigDecimal exp = new BigDecimal(Math.exp(-1 * sum.doubleValue()));
+        sum = sum.multiply(new BigDecimal(-1)).setScale(SCALE, RoundingMode.HALF_UP);
+        double dou = Math.exp(sum.doubleValue());
+        BigDecimal exp;
+        if (dou > 99999d) {
+            exp = new BigDecimal(999d);
+        } else if(dou < -0.99999d) {
+            exp = new BigDecimal(-0.99999d);
+        } else {
+            exp = new BigDecimal(dou);
+        }
         return new BigDecimal(1).divide(exp.add(new BigDecimal(1)), SCALE, RoundingMode.HALF_UP);
     }
 
 
-    /**-------------------------------------------------------------/
-
     /**
+     * -------------------------------------------------------------/
+     * <p>
+     * /**
      * 读取特征值到神经元
+     *
      * @param inputFeatures
      */
     private void readFeature(final List<BigDecimal> inputFeatures) {
@@ -80,11 +92,11 @@ public class NeuralUnit {
         // 偏置 b 的特征固定为 1. (如果把偏置也看成一个权重，那么它是特殊的，特殊之处在于它的特征值 feature 永远为 1)
         inputFeatureVector.add(new BigDecimal(1));
         // 校验输入值是否跟权重数量匹配
-        if(inputFeatureVector.size() != weightVector.size()) {
+        if (inputFeatureVector.size() != weightVector.size()) {
             throw new RuntimeException(
                     "输入特征值的数量为" + inputFeatureVector.size()
-                    + " 与本神经元的权重数量" + weightVector.size()
-                    + "不相等，无法配对");
+                            + " 与本神经元的权重数量" + weightVector.size()
+                            + "不相等，无法配对");
         }
     }
 

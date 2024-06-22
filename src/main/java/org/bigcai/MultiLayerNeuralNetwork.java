@@ -37,7 +37,7 @@ public class MultiLayerNeuralNetwork {
     /**
      * 学习率
      */
-    BigDecimal learnRate = new BigDecimal(0.2);
+    BigDecimal learnRate = new BigDecimal(0.06);
 
     public MultiLayerNeuralNetwork(List<SingleLayerNeuralNetwork> initSingleLayerNeuralNetworkList) {
         singleLayerNeuralNetworkList.addAll(initSingleLayerNeuralNetworkList);
