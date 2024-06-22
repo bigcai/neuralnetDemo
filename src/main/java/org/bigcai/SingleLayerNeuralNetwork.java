@@ -34,8 +34,15 @@ public class SingleLayerNeuralNetwork {
      */
     List<BigDecimal> outputActivationCache = new ArrayList<>();
 
+    /**
+     * 当前层的误差项列表缓存
+     */
+    List<BigDecimal> errorOfErrorSourceLayer = new ArrayList<>();
+
     public SingleLayerNeuralNetwork(List<NeuralUnit> initNeuralUnitList) {
-        layer.addAll(initNeuralUnitList);
+        if(initNeuralUnitList != null) {
+            layer.addAll(initNeuralUnitList);
+        }
     }
 
     /**

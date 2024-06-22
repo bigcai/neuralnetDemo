@@ -9,9 +9,9 @@ import java.util.List;
  * 神经元
  */
 public class NeuralUnit {
-    public static final int SCALE = 3;
+    public static final int SCALE = 4;
     /**
-     * 神经元的特征接收器（一个向量列表）
+     * 神经元的特征接收器（一个向量列表, 也可以理解为是上层输出的激活值）
      */
     List<BigDecimal> inputFeatureVector = new ArrayList<>();
     /**
@@ -34,9 +34,11 @@ public class NeuralUnit {
     public NeuralUnit(List<BigDecimal> weightVectorInit, BigDecimal offset) {
 
         for (BigDecimal weightInit: weightVectorInit) {
+            weightInit = weightInit.setScale(SCALE, RoundingMode.HALF_UP);
             weightVector.add(weightInit);
         }
         // 偏置 b 也是权重
+        offset = offset.setScale(SCALE, RoundingMode.HALF_UP);
         weightVector.add(offset);
     }
 

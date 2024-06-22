@@ -34,6 +34,11 @@ public class MultiLayerNeuralNetwork {
      */
     List<BigDecimal> outputActivationCache = new ArrayList<>();
 
+    /**
+     * 学习率
+     */
+    BigDecimal learnRate = new BigDecimal(0.2);
+
     public MultiLayerNeuralNetwork(List<SingleLayerNeuralNetwork> initSingleLayerNeuralNetworkList) {
         singleLayerNeuralNetworkList.addAll(initSingleLayerNeuralNetworkList);
     }
