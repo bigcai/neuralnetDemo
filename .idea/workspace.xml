@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76b31af4-15c6-49ec-9909-50ec0bf4c208" name="Changes" comment="feat: 实现反向传播算法">
+    <list default="true" id="76b31af4-15c6-49ec-9909-50ec0bf4c208" name="Changes" comment="feat: 修改学习率和目标值">
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/bigcai/DataSetTrainTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/bigcai/vo/DataForTrainVo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bigcai/BackpropagationAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/BackpropagationAlgorithm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bigcai/MultiLayerNeuralNetwork.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/MultiLayerNeuralNetwork.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bigcai/NeuralUnit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/NeuralUnit.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/org/bigcai/BackpropagationAlgorithmTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/bigcai/BackpropagationAlgorithmTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -70,6 +69,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Gradle.neuralnetDemo [:BackpropagationAlgorithmTest.main()].executor": "Debug",
+    "Gradle.neuralnetDemo [:DataSetTrainTest.main()].executor": "Debug",
     "Gradle.neuralnetDemo [:MeanSquareErrorTest.main()].executor": "Run",
     "Gradle.neuralnetDemo [:NeuralUnitTest.main()].executor": "Run",
     "Gradle.neuralnetDemo [:SingleLayerNeuralNetworkTest.main()].executor": "Run",
@@ -97,9 +97,27 @@
   <component name="RebelAgentSelection">
     <selection>jr</selection>
   </component>
-  <component name="RunManager" selected="Application.BackpropagationAlgorithmTest">
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="org.bigcai" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.DataSetTrainTest">
     <configuration name="BackpropagationAlgorithmTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.bigcai.BackpropagationAlgorithmTest" />
+      <module name="neuralnetDemo.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.bigcai.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DataSetTrainTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.bigcai.DataSetTrainTest" />
       <module name="neuralnetDemo.test" />
       <extension name="coverage">
         <pattern>
@@ -137,19 +155,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="NeuralUnitTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.bigcai.NeuralUnitTest" />
-      <module name="neuralnetDemo.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.bigcai.error.function.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="SingleLayerNeuralNetworkTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.bigcai.SingleLayerNeuralNetworkTest" />
       <module name="neuralnetDemo.test" />
@@ -165,11 +170,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.DataSetTrainTest" />
         <item itemvalue="Application.BackpropagationAlgorithmTest" />
         <item itemvalue="Application.MeanSquareErrorTest" />
         <item itemvalue="Application.MultiLayerNeuralNetworkTest" />
         <item itemvalue="Application.SingleLayerNeuralNetworkTest" />
-        <item itemvalue="Application.NeuralUnitTest" />
       </list>
     </recent_temporary>
   </component>
@@ -193,7 +198,8 @@
       <workItem from="1718545498155" duration="77000" />
       <workItem from="1718545583372" duration="218000" />
       <workItem from="1718623102017" duration="7266000" />
-      <workItem from="1719058378862" duration="21345000" />
+      <workItem from="1719058378862" duration="22601000" />
+      <workItem from="1719116122663" duration="2393000" />
     </task>
     <task id="LOCAL-00001" summary="feat: init">
       <option name="closed" value="true" />
@@ -259,7 +265,23 @@
       <option name="project" value="LOCAL" />
       <updated>1719079030949</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="fix: 修复两次未重置数据引起的BUG">
+      <option name="closed" value="true" />
+      <created>1719083553052</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1719083553052</updated>
+    </task>
+    <task id="LOCAL-00010" summary="feat: 修改学习率和目标值">
+      <option name="closed" value="true" />
+      <created>1719083711831</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1719083711831</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -284,7 +306,9 @@
     <MESSAGE value="feat: commit4" />
     <MESSAGE value="feat: commit5" />
     <MESSAGE value="feat: 实现反向传播算法" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 实现反向传播算法" />
+    <MESSAGE value="fix: 修复两次未重置数据引起的BUG" />
+    <MESSAGE value="feat: 修改学习率和目标值" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 修改学习率和目标值" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

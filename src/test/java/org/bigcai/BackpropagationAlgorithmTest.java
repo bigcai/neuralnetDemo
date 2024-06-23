@@ -14,14 +14,14 @@ public class BackpropagationAlgorithmTest {
 
         MultiLayerNeuralNetwork multiLayerNeuralNetwork = buildMultiLayerNeuralNetwork();
         for (int i = 0; i < 10000; i++) {
-            tranModel(multiLayerNeuralNetwork, backpropagationAlgorithm);
+            trainModel(multiLayerNeuralNetwork, backpropagationAlgorithm);
         }
-        tranModel(multiLayerNeuralNetwork, backpropagationAlgorithm);
 
 
     }
 
-    private static void tranModel(MultiLayerNeuralNetwork multiLayerNeuralNetwork, BackpropagationAlgorithm backpropagationAlgorithm) {
+    private static void trainModel(MultiLayerNeuralNetwork multiLayerNeuralNetwork, BackpropagationAlgorithm backpropagationAlgorithm) {
+
         List<BigDecimal> features = new ArrayList<>();
         features.add(new BigDecimal(0.5));
         features.add(new BigDecimal(0.1));
