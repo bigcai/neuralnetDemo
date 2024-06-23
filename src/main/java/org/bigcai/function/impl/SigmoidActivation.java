@@ -1,0 +1,26 @@
+package org.bigcai.function.impl;
+
+import org.bigcai.function.ActivationFunction;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+import static org.bigcai.NeuralUnit.SCALE;
+
+public class SigmoidActivation extends ActivationFunction {
+    @Override
+    public BigDecimal activationFunction(BigDecimal sum) {
+        sum = sum.multiply(new BigDecimal(-1))
+                .setScale(SCALE, RoundingMode.HALF_UP);
+        double dou = Math.exp(sum.doubleValue());
+        BigDecimal exp;
+        if (dou > 99999d) {
+            exp = new BigDecimal(999d);
+        } else if(dou < -0.99999d) {
+            exp = new BigDecimal(-0.99999d);
+        } else {
+            exp = new BigDecimal(dou);
+        }
+        return new BigDecimal(1).divide(exp.add(new BigDecimal(1)), SCALE, RoundingMode.HALF_UP);
+    }
+}

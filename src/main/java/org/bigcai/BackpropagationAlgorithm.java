@@ -1,5 +1,7 @@
 package org.bigcai;
 
+import org.bigcai.function.impl.MeanSquareError;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -19,19 +21,44 @@ import static org.bigcai.NeuralUnit.SCALE;
  * 1.计算【整个网络】的误差项矩阵（神经元矩阵相对应）。
  * 2.计算【每个神经元】的新权重向量。
  */
-public class BackpropagationAlgorithm {
+public class BackpropagationAlgorithm extends MeanSquareError {
 
     /**
-     * 进行一轮权重更新
+     * 计算多层神经网络每一层的误差项（其实就是一个偏导值）
+     *
+     * @param multiLayer
+     * @param errorSource
+     */
+    public void computeMultiNeuralNetworkError(MultiLayerNeuralNetwork multiLayer, List<BigDecimal> errorSource) {
+        //  虚拟层， 只有一个神经元，误差向量是【输出层的损失函数向量】
+        SingleLayerNeuralNetwork lastLay = new SingleLayerNeuralNetwork(null);
+        lastLay.errorOfErrorSourceLayer = errorSource;
+
+        // 既然是反向传播，那当然是从最后一层神经元开始计算了
+        for (int i = multiLayer.singleLayerNeuralNetworkList.size() - 1; i >= 0; i--) {
+            SingleLayerNeuralNetwork singleLayer = multiLayer.singleLayerNeuralNetworkList.get(i);
+            computeSingleLayerError(singleLayer, lastLay);
+            lastLay = singleLayer;
+        }
+    }
+
+
+
+    /**
+     * 进行一轮权重更新（会用到梯度向量和学习率）
+     *
      * @param multiLayer
      */
     public void updateMultiNeuralNetworkWeight(MultiLayerNeuralNetwork multiLayer) {
         // 既然是反向传播，那当然是从最后一层神经元开始计算了
         for (int i = multiLayer.singleLayerNeuralNetworkList.size() - 1; i >= 0; i--) {
+
             SingleLayerNeuralNetwork singleLayer = multiLayer.singleLayerNeuralNetworkList.get(i);
             for (int neuralUnitIndex = 0; neuralUnitIndex < singleLayer.layer.size(); neuralUnitIndex++) {
                 NeuralUnit neuralUnit = singleLayer.layer.get(neuralUnitIndex);
+                // 获取当前神经元的误差项（损失值对权重向量积的敏感度）
                 BigDecimal currentNeuralUnitError = singleLayer.errorOfErrorSourceLayer.get(neuralUnitIndex);
+                // 计算梯度向量，即损失值对每一个权重的敏感度
                 List<BigDecimal> gradientVector = computeNeuralUnitGradientVector(neuralUnit, currentNeuralUnitError);
                 // 更新神经元权重
                 updateWeight(neuralUnit, gradientVector, multiLayer.learnRate);
@@ -40,6 +67,31 @@ public class BackpropagationAlgorithm {
         }
     }
 
+    /**
+     * 计算每一层神经网络的误差项列表
+     * @param singleLayer
+     * @param lastLay
+     */
+    private void computeSingleLayerError(SingleLayerNeuralNetwork singleLayer, SingleLayerNeuralNetwork lastLay) {
+        // 重置该层的误差项列表
+        singleLayer.errorOfErrorSourceLayer.clear();
+        // 计算每一个神经元的误差项
+        for (int neuralUnitIndex = 0; neuralUnitIndex < singleLayer.layer.size(); neuralUnitIndex++) {
+            NeuralUnit currentNeuralUnit = singleLayer.layer.get(neuralUnitIndex);
+            BigDecimal currentNeuralUnitError = computeCurrentNeuralUnitError(neuralUnitIndex, currentNeuralUnit, lastLay)
+                    .setScale(SCALE, RoundingMode.HALF_UP);
+            singleLayer.errorOfErrorSourceLayer.add(currentNeuralUnitError);
+        }
+    }
+
+    /**
+     * 这个公式需要通过泰勒展开证明得到，通过对损失函数进行泰勒展开得到一条递推公式，最终推导出一条令损失值递降的办法，
+     * 就是令学习率大于 0 并且 还要乘上损失函数对权重的偏导（也就是所谓的梯度向量）。
+     *
+     * @param neuralUnit
+     * @param gradientVector
+     * @param learnRate
+     */
     private void updateWeight(NeuralUnit neuralUnit, List<BigDecimal> gradientVector, BigDecimal learnRate) {
         for (int i = 0; i < neuralUnit.weightVector.size(); i++) {
             BigDecimal oldWeight = neuralUnit.weightVector.get(i);
@@ -49,7 +101,13 @@ public class BackpropagationAlgorithm {
         }
     }
 
-    // 计算制定神经元的梯度，即 损失函数对神经元权重的敏感度。
+    /**
+     * 计算制定神经元的梯度向量，即 损失函数对神经元每个权重的敏感度。
+     *
+      * @param neuralUnit
+     * @param currentNeuralUnitError
+     * @return
+     */
     private List<BigDecimal> computeNeuralUnitGradientVector(NeuralUnit neuralUnit, BigDecimal currentNeuralUnitError) {
         List<BigDecimal> neuralUnitGradientVector = new ArrayList<>();
         for (BigDecimal inputFeature : neuralUnit.inputFeatureVector) {
@@ -66,23 +124,30 @@ public class BackpropagationAlgorithm {
      */
     private BigDecimal computeCurrentNeuralUnitError(int neuralUnitIndex, NeuralUnit currentNeuralUnit, SingleLayerNeuralNetwork errorSourceLayer) {
         BigDecimal currentNeuralUnitError = new BigDecimal(0);
+
+        /**
+         * 计算出 Z 偏导（每种损失函数的计算方式都不一样）
+         */
         BigDecimal activationVal = currentNeuralUnit.activationFunctionValue;
-        BigDecimal partialDerivativeZ = computePartialDerivativeZ(activationVal);
+        BigDecimal partialDerivativeZ = this.computePartialDerivativeZ(activationVal);
+
+        // 读取当了神经元（通过序号指定）与上一次神经元链接的权重。
         List<BigDecimal> weightOfErrorSourceLayerByIndex = readWeightByIndex(neuralUnitIndex, errorSourceLayer);
         List<BigDecimal> errorOfErrorSourceLayer = errorSourceLayer.errorOfErrorSourceLayer;
         for (int i = 0; i < errorOfErrorSourceLayer.size(); i++) {
+            // 每一个误差来源层的输入权重
             BigDecimal weight = weightOfErrorSourceLayerByIndex.get(i);
+            // 权重所在的来源层神经的误差项
+            BigDecimal lastError = errorOfErrorSourceLayer.get(i);
+            // 对上一个层误差的贡献度 【需要重点理解】
+            BigDecimal contributionOfError = weight.multiply(lastError);
+
             // 每一个误差来源层的输入权重 * 权重所在的来源层神经的误差项 * 当前神经元的激活值
-            BigDecimal item = weight.multiply(errorOfErrorSourceLayer.get(i)).multiply(partialDerivativeZ);
-            item = item.setScale(SCALE, RoundingMode.HALF_UP);
+            BigDecimal item = contributionOfError.multiply(partialDerivativeZ)
+                    .setScale(SCALE, RoundingMode.HALF_UP);
             currentNeuralUnitError = currentNeuralUnitError.add(item);
         }
         return currentNeuralUnitError;
-    }
-
-    // TODO 根据损失函数来决定计算规则
-    private BigDecimal computePartialDerivativeZ(BigDecimal activationVal) {
-        return activationVal.multiply(new BigDecimal(1).subtract(activationVal));
     }
 
     private List<BigDecimal> readWeightByIndex(int neuralUnitIndex, SingleLayerNeuralNetwork errorSourceLayer) {
@@ -102,26 +167,6 @@ public class BackpropagationAlgorithm {
         return weightOfErrorSourceLayerByIndex;
     }
 
-    public void computeMultiNeuralNetworkError(MultiLayerNeuralNetwork multiLayer, List<BigDecimal> errorSource) {
-        //  虚拟层， 只有一个神经元，误差是
-
-        SingleLayerNeuralNetwork lastLay = new SingleLayerNeuralNetwork(null);
-        lastLay.errorOfErrorSourceLayer = errorSource;
-        // 既然是反向传播，那当然是从最后一层神经元开始计算了
-        for (int i = multiLayer.singleLayerNeuralNetworkList.size() - 1; i >= 0; i--) {
-            SingleLayerNeuralNetwork singleLayer = multiLayer.singleLayerNeuralNetworkList.get(i);
-            // 重置该层的误差项列表
-            singleLayer.errorOfErrorSourceLayer.clear();
-            // 计算每一个神经元的误差项
-            for (int neuralUnitIndex = 0; neuralUnitIndex < singleLayer.layer.size(); neuralUnitIndex++) {
-                NeuralUnit currentNeuralUnit = singleLayer.layer.get(neuralUnitIndex);
-                BigDecimal currentNeuralUnitError = computeCurrentNeuralUnitError(neuralUnitIndex, currentNeuralUnit, lastLay);
-                currentNeuralUnitError = currentNeuralUnitError.setScale(SCALE, RoundingMode.HALF_UP);
-                singleLayer.errorOfErrorSourceLayer.add(currentNeuralUnitError);
-            }
-            lastLay = singleLayer;
-        }
-    }
 }
 
 /**

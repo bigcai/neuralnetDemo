@@ -39,7 +39,7 @@ public class BackpropagationAlgorithmTest {
             System.out.println("==================");
         }*/
         // 更新神经元的误差项，打印误差项
-        List<BigDecimal> errorSource = computeError(activationVal, actualValue);
+        List<BigDecimal> errorSource = backpropagationAlgorithm.computeError(activationVal, actualValue);
         backpropagationAlgorithm.computeMultiNeuralNetworkError(multiLayerNeuralNetwork, errorSource);
         /*System.out.println("======打印误差项===============");
 
@@ -64,14 +64,7 @@ public class BackpropagationAlgorithmTest {
 
     }
 
-    private static List<BigDecimal> computeError(List<BigDecimal> activationVal, BigDecimal actualValue) {
-        List<BigDecimal> errorSource = new ArrayList<>();
-        for (BigDecimal estimatedValue : activationVal) {
-            errorSource.add(estimatedValue.subtract(actualValue).setScale(SCALE, RoundingMode.HALF_UP));
-        }
-        System.out.println("loss value: " + errorSource);
-        return errorSource;
-    }
+
 
     private static MultiLayerNeuralNetwork buildMultiLayerNeuralNetwork() {
         /** 第一层神经网络*/

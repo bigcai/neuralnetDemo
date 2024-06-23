@@ -1,5 +1,7 @@
 package org.bigcai;
 
+import org.bigcai.function.impl.SigmoidActivation;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -8,25 +10,28 @@ import java.util.List;
 /**
  * 神经元
  */
-public class NeuralUnit {
+public class NeuralUnit extends SigmoidActivation {
     public static final int SCALE = 6;
+
     /**
      * 神经元的特征接收器（一个向量列表, 也可以理解为是上层输出的激活值）
      */
     List<BigDecimal> inputFeatureVector = new ArrayList<>();
+
     /**
      * 神经元的特征权重向量（一个向量列表）
      */
     List<BigDecimal> weightVector = new ArrayList<>();
-    /**
-     * 求和
-     */
-    BigDecimal sum = new BigDecimal(0);
 
     /**
      * 激活函数值
      */
     BigDecimal activationFunctionValue;
+
+    /**
+     * 权重向量积
+     */
+    BigDecimal sumZ = new BigDecimal(0);
 
     /**
      * 初始化神经元
@@ -50,37 +55,22 @@ public class NeuralUnit {
         readFeature(inputFeatures);
 
         // 求和
-        sum = new BigDecimal(0);
+        sumZ = new BigDecimal(0);
         for (int i = 0; i < inputFeatureVector.size(); i++) {
-            sum = sum.add(inputFeatureVector.get(i).multiply(weightVector.get(i)));
+            sumZ = sumZ.add(inputFeatureVector.get(i).multiply(weightVector.get(i)));
         }
 
         // 计算激活值，并输出
-        activationFunctionValue = activationFunction(sum);
-        activationFunctionValue.setScale(SCALE);
+        activationFunctionValue = this.activationFunction(sumZ)
+                .setScale(SCALE, RoundingMode.HALF_UP);
         return activationFunctionValue;
     }
-
-    private BigDecimal activationFunction(BigDecimal sum) {
-        sum = sum.multiply(new BigDecimal(-1)).setScale(SCALE, RoundingMode.HALF_UP);
-        double dou = Math.exp(sum.doubleValue());
-        BigDecimal exp;
-        if (dou > 99999d) {
-            exp = new BigDecimal(999d);
-        } else if(dou < -0.99999d) {
-            exp = new BigDecimal(-0.99999d);
-        } else {
-            exp = new BigDecimal(dou);
-        }
-        return new BigDecimal(1).divide(exp.add(new BigDecimal(1)), SCALE, RoundingMode.HALF_UP);
-    }
-
 
     /**
      * -------------------------------------------------------------/
      * <p>
      * /**
-     * 读取特征值到神经元
+     * 读取特征值到神经元缓存中
      *
      * @param inputFeatures
      */

@@ -4,11 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76b31af4-15c6-49ec-9909-50ec0bf4c208" name="Changes" comment="feat: 修改学习率和目标值">
-      <change afterPath="$PROJECT_DIR$/src/test/java/org/bigcai/DataSetTrainTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/org/bigcai/vo/DataForTrainVo.java" afterDir="false" />
+    <list default="true" id="76b31af4-15c6-49ec-9909-50ec0bf4c208" name="Changes" comment="feat: 实现多数据集合训练10000次，并有另一个测试数据集做预测的过程。">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/function/ActivationFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/function/impl/MeanSquareError.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/function/impl/SigmoidActivation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/util/MathUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bigcai/BackpropagationAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/BackpropagationAlgorithm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bigcai/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bigcai/MeanSquareError.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bigcai/NeuralUnit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/NeuralUnit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bigcai/error/function/ErrorFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/function/ErrorFunction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/org/bigcai/BackpropagationAlgorithmTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/bigcai/BackpropagationAlgorithmTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/bigcai/MeanSquareErrorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/bigcai/MeanSquareErrorTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,34 +74,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.neuralnetDemo [:BackpropagationAlgorithmTest.main()].executor": "Debug",
-    "Gradle.neuralnetDemo [:DataSetTrainTest.main()].executor": "Debug",
-    "Gradle.neuralnetDemo [:MeanSquareErrorTest.main()].executor": "Run",
-    "Gradle.neuralnetDemo [:NeuralUnitTest.main()].executor": "Run",
-    "Gradle.neuralnetDemo [:SingleLayerNeuralNetworkTest.main()].executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/caisz/onedrive/neuralnetDemo",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "D:/caisz/OneDrive/neuralnetDemo/src/main/java/org/bigcai/Main.java",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.neuralnetDemo [:BackpropagationAlgorithmTest.main()].executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.neuralnetDemo [:DataSetTrainTest.main()].executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.neuralnetDemo [:MeanSquareErrorTest.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.neuralnetDemo [:NeuralUnitTest.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.neuralnetDemo [:SingleLayerNeuralNetworkTest.main()].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/caisz/onedrive/neuralnetDemo&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;D:/caisz/OneDrive/neuralnetDemo/src/main/java/org/bigcai/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RebelAgentSelection">
     <selection>jr</selection>
   </component>
@@ -108,7 +116,7 @@
       <module name="neuralnetDemo.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.bigcai.*" />
+          <option name="PATTERN" value="org.bigcai.function.impl.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -121,7 +129,7 @@
       <module name="neuralnetDemo.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.bigcai.*" />
+          <option name="PATTERN" value="org.bigcai.function.impl.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -134,7 +142,7 @@
       <module name="neuralnetDemo.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.bigcai.*" />
+          <option name="PATTERN" value="org.bigcai.function.impl.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -199,7 +207,8 @@
       <workItem from="1718545583372" duration="218000" />
       <workItem from="1718623102017" duration="7266000" />
       <workItem from="1719058378862" duration="22601000" />
-      <workItem from="1719116122663" duration="2393000" />
+      <workItem from="1719116122663" duration="4500000" />
+      <workItem from="1719146961138" duration="3144000" />
     </task>
     <task id="LOCAL-00001" summary="feat: init">
       <option name="closed" value="true" />
@@ -281,7 +290,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719083711831</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="feat: 实现多数据集合训练10000次，并有另一个测试数据集做预测的过程。">
+      <option name="closed" value="true" />
+      <created>1719118912802</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1719118912802</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -308,21 +325,13 @@
     <MESSAGE value="feat: 实现反向传播算法" />
     <MESSAGE value="fix: 修复两次未重置数据引起的BUG" />
     <MESSAGE value="feat: 修改学习率和目标值" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 修改学习率和目标值" />
+    <MESSAGE value="feat: 实现多数据集合训练10000次，并有另一个测试数据集做预测的过程。" />
+    <MESSAGE value="feat: 实现神经网络结构，并编写损失函数" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 实现多数据集合训练10000次，并有另一个测试数据集做预测的过程。" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/bigcai/Main.java</url>
-          <line>15</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/bigcai/BackpropagationAlgorithm.java</url>
-          <line>124</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.lang.NullPointerException" package="java.lang" />
           <option name="timeStamp" value="2" />
