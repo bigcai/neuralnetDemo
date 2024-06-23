@@ -1,5 +1,7 @@
 package org.bigcai.function;
 
+import org.bigcai.entity.MultiLayerNeuralNetwork;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -30,5 +32,6 @@ public abstract class ErrorFunction {
      * @param actualValue
      * @return
      */
-    public abstract List<BigDecimal> computeError(List<BigDecimal> activationVal, BigDecimal actualValue);
+    public abstract List<BigDecimal> computeError(MultiLayerNeuralNetwork multiLayerNeuralNetwork,
+                                                  List<BigDecimal> activationVal, BigDecimal actualValue);
 }

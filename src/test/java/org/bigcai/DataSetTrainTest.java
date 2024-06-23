@@ -79,16 +79,15 @@ public class DataSetTrainTest {
 
     private static void trainData(DataForTrainVo dataForTrainVo,
                                   MultiLayerNeuralNetwork multiLayerNeuralNetwork, BackpropagationAlgorithm backpropagationAlgorithm) {
-        List<BigDecimal> activationVal = multiLayerNeuralNetwork.compute(dataForTrainVo.features);
+        List<BigDecimal> estimateVal = multiLayerNeuralNetwork.compute(dataForTrainVo.features);
         //System.out.println("BBBBBBBB训练前预估值：" + activationVal);
 
         // 更新神经元的误差项，打印误差项
-        List<BigDecimal> errorSource = computeError(activationVal, dataForTrainVo.actualValue);
-        backpropagationAlgorithm.computeMultiNeuralNetworkError(multiLayerNeuralNetwork, errorSource);
+        backpropagationAlgorithm.computeError(multiLayerNeuralNetwork, estimateVal, dataForTrainVo.actualValue);
         // 更新前的权重
         backpropagationAlgorithm.updateMultiNeuralNetworkWeight(multiLayerNeuralNetwork);
 
-        activationVal = multiLayerNeuralNetwork.compute(dataForTrainVo.features);
+        estimateVal = multiLayerNeuralNetwork.compute(dataForTrainVo.features);
         //System.out.println("EEEEEEEEE训练后预估值：" + activationVal);
     }
 

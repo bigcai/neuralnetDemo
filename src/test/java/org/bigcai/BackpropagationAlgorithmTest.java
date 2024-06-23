@@ -28,8 +28,8 @@ public class BackpropagationAlgorithmTest {
         features.add(new BigDecimal(0.1));
         BigDecimal actualValue = new BigDecimal(0.64);
 
-        List<BigDecimal> activationVal = multiLayerNeuralNetwork.compute(features);
-        System.out.println("BBBBBBBB训练前预估值：" + activationVal);
+        List<BigDecimal> estimateVal = multiLayerNeuralNetwork.compute(features);
+        System.out.println("BBBBBBBB训练前预估值：" + estimateVal);
 
         /*// 打印更新前的权重
         System.out.println("=========打印更新前的权重=========");
@@ -40,8 +40,7 @@ public class BackpropagationAlgorithmTest {
             System.out.println("==================");
         }*/
         // 更新神经元的误差项，打印误差项
-        List<BigDecimal> errorSource = backpropagationAlgorithm.computeError(activationVal, actualValue);
-        multiLayerNeuralNetwork.computeError(errorSource);
+        backpropagationAlgorithm.computeError(multiLayerNeuralNetwork, estimateVal, actualValue);
         /*System.out.println("======打印误差项===============");
 
         for (SingleLayerNeuralNetwork singleLayerNeuralNetwork: multiLayerNeuralNetwork.singleLayerNeuralNetworkList) {
@@ -60,8 +59,8 @@ public class BackpropagationAlgorithmTest {
             System.out.println("==================");
         }*/
 
-        activationVal = multiLayerNeuralNetwork.compute(features);
-        System.out.println("EEEEEEEEE训练后预估值：" + activationVal);
+        estimateVal = multiLayerNeuralNetwork.compute(features);
+        System.out.println("EEEEEEEEE训练后预估值：" + estimateVal);
 
     }
 

@@ -1,5 +1,6 @@
 package org.bigcai.function.impl;
 
+import org.bigcai.entity.MultiLayerNeuralNetwork;
 import org.bigcai.function.ErrorFunction;
 
 import java.math.BigDecimal;
@@ -44,12 +45,14 @@ public class MeanSquareError extends ErrorFunction {
      * @return
      */
     @Override
-    public List<BigDecimal> computeError(List<BigDecimal> activationVal, BigDecimal actualValue) {
+    public List<BigDecimal> computeError(MultiLayerNeuralNetwork multiLayerNeuralNetwork,
+                                         List<BigDecimal> activationVal, BigDecimal actualValue) {
         List<BigDecimal> errorSource = new ArrayList<>();
         for (BigDecimal estimatedValue : activationVal) {
             errorSource.add(estimatedValue.subtract(actualValue)
                     .setScale(SCALE, RoundingMode.HALF_UP));
         }
+        multiLayerNeuralNetwork.computeError(errorSource);
         return errorSource;
     }
 
