@@ -55,7 +55,7 @@ public class BackpropagationAlgorithm extends MeanSquareError{
     }
 
     /**
-     * 计算制定神经元的梯度向量，即 损失函数对神经元每个权重的敏感度。
+     * 【涉及计算 - 乘法】计算制定神经元的梯度向量，即 损失函数对神经元每个权重的敏感度。
      *
      * @param neuralUnit
      * @param currentNeuralUnitError
@@ -82,8 +82,9 @@ public class BackpropagationAlgorithm extends MeanSquareError{
     private void updateWeight(NeuralUnit neuralUnit, List<BigDecimal> gradientVector, BigDecimal learnRate) {
         for (int i = 0; i < neuralUnit.getWeightVector().size(); i++) {
             BigDecimal oldWeight = neuralUnit.getWeightVector().get(i);
-            BigDecimal newWeight = oldWeight.subtract(learnRate.multiply(gradientVector.get(i)));
-            newWeight = newWeight.setScale(SCALE, RoundingMode.HALF_UP);
+            // 【涉及计算 - 乘法、减法】 计算在给定学习率的权重调参
+            BigDecimal newWeight = oldWeight.subtract(learnRate.multiply(gradientVector.get(i)))
+                    .setScale(SCALE, RoundingMode.HALF_UP);
             neuralUnit.getWeightVector().set(i, newWeight);
         }
     }

@@ -15,7 +15,7 @@ public class MeanSquareError extends ErrorFunction {
     /**
      * 均方差公式，用于计算特征列表的均方差（方差的一半，累加后求平均数）
      *
-     * 这个公式用不到，但他的偏导数则会被频繁用到。
+     * 【涉及计算 - 减法、指数运算、乘法、除法】这个公式用不到，但他的偏导数则会被频繁用到。
      *
      * @param outputList
      * @param actualList
@@ -38,7 +38,7 @@ public class MeanSquareError extends ErrorFunction {
     }
 
     /**
-     * 计算输出层的损失函数向量
+     * 【涉及计算 - 加法、减法】计算输出层的损失函数向量
      *
      * @param activationVal
      * @param actualValue

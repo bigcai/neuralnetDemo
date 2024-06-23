@@ -73,7 +73,7 @@ public class NeuralUnit extends SigmoidActivation implements ErrorComputer {
         // 神经元读取数据
         readFeature(inputFeatures);
 
-        // 求和
+        // 【涉及计算 - 乘法、加法】求和
         sumZ = new BigDecimal(0);
         for (int i = 0; i < inputFeatureVector.size(); i++) {
             sumZ = sumZ.add(inputFeatureVector.get(i).multiply(weightVector.get(i)));
@@ -166,10 +166,10 @@ public class NeuralUnit extends SigmoidActivation implements ErrorComputer {
             // 每一个误差来源层的输入权重
             BigDecimal weight = weightOfErrorSourceLayerByIndex.get(i);
             // 权重所在的来源层神经的误差项
-            // 对上一个层误差的贡献度 【需要重点理解】
+            // 【涉及计算 - 乘法】对上一个层误差的贡献度 【需要重点理解】
             BigDecimal contributionOfError = weight.multiply(layerErrorElement);
 
-            // 每一个误差来源层的输入权重 * 权重所在的来源层神经的误差项 * 当前神经元的激活值
+            // 【涉及计算 - 乘法】每一个误差来源层的输入权重 * 权重所在的来源层神经的误差项 * 当前神经元的激活值
             BigDecimal item = contributionOfError.multiply(partialDerivativeZ)
                     .setScale(SCALE, RoundingMode.HALF_UP);
             currentNeuralUnitError = currentNeuralUnitError.add(item);
