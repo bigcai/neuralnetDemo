@@ -23,4 +23,16 @@ public class SigmoidActivation extends ActivationFunction {
         }
         return new BigDecimal(1).divide(exp.add(new BigDecimal(1)), SCALE, RoundingMode.HALF_UP);
     }
+
+    /**
+     * 根据损失函数来决定计算规则
+     * (这个函数很妙，求偏导本质上是在求自变量的系数，他只用到因变量就可以解出这个系数)
+     *
+     * @param activationVal
+     * @return
+     */
+    @Override
+    public BigDecimal computePartialDerivativeZOfActivation(BigDecimal activationVal) {
+        return activationVal.multiply(new BigDecimal(1).subtract(activationVal));
+    }
 }

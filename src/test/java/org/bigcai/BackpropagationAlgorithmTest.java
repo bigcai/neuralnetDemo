@@ -1,11 +1,12 @@
 package org.bigcai;
 
+import org.bigcai.entity.BackpropagationAlgorithm;
+import org.bigcai.entity.MultiLayerNeuralNetwork;
+import org.bigcai.entity.SingleLayerNeuralNetwork;
+
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.bigcai.NeuralUnit.SCALE;
 
 public class BackpropagationAlgorithmTest {
     public static void main(String[] args) {
@@ -40,7 +41,7 @@ public class BackpropagationAlgorithmTest {
         }*/
         // 更新神经元的误差项，打印误差项
         List<BigDecimal> errorSource = backpropagationAlgorithm.computeError(activationVal, actualValue);
-        backpropagationAlgorithm.computeMultiNeuralNetworkError(multiLayerNeuralNetwork, errorSource);
+        multiLayerNeuralNetwork.computeError(errorSource);
         /*System.out.println("======打印误差项===============");
 
         for (SingleLayerNeuralNetwork singleLayerNeuralNetwork: multiLayerNeuralNetwork.singleLayerNeuralNetworkList) {

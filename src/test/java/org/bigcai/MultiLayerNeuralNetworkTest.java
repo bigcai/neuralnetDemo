@@ -1,5 +1,8 @@
 package org.bigcai;
 
+import org.bigcai.entity.MultiLayerNeuralNetwork;
+import org.bigcai.entity.SingleLayerNeuralNetwork;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;

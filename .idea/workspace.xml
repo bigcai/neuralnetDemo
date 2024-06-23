@@ -4,19 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76b31af4-15c6-49ec-9909-50ec0bf4c208" name="Changes" comment="feat: 实现多数据集合训练10000次，并有另一个测试数据集做预测的过程。">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/function/ActivationFunction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/function/impl/MeanSquareError.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/function/impl/SigmoidActivation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/util/MathUtil.java" afterDir="false" />
+    <list default="true" id="76b31af4-15c6-49ec-9909-50ec0bf4c208" name="Changes" comment="fix: 重构代码逻辑，抽象出激活函数和损失函数（从这两个视角理解神经网络的本质）">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/Layer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/entity/helper/ErrorComputer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bigcai/BackpropagationAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/BackpropagationAlgorithm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bigcai/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bigcai/MeanSquareError.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bigcai/BackpropagationAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/entity/BackpropagationAlgorithm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bigcai/MultiLayerNeuralNetwork.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/entity/MultiLayerNeuralNetwork.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/bigcai/NeuralUnit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/NeuralUnit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bigcai/error/function/ErrorFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/function/ErrorFunction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bigcai/SingleLayerNeuralNetwork.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/entity/SingleLayerNeuralNetwork.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bigcai/function/ActivationFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/function/ActivationFunction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bigcai/function/ErrorFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/function/ErrorFunction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bigcai/function/impl/MeanSquareError.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/function/impl/MeanSquareError.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bigcai/function/impl/SigmoidActivation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/function/impl/SigmoidActivation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/org/bigcai/BackpropagationAlgorithmTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/bigcai/BackpropagationAlgorithmTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/bigcai/MeanSquareErrorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/bigcai/MeanSquareErrorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/bigcai/DataSetTrainTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/bigcai/DataSetTrainTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/bigcai/MultiLayerNeuralNetworkTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/bigcai/MultiLayerNeuralNetworkTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/bigcai/SingleLayerNeuralNetworkTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/bigcai/SingleLayerNeuralNetworkTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -208,7 +211,7 @@
       <workItem from="1718623102017" duration="7266000" />
       <workItem from="1719058378862" duration="22601000" />
       <workItem from="1719116122663" duration="4500000" />
-      <workItem from="1719146961138" duration="3144000" />
+      <workItem from="1719146961138" duration="8691000" />
     </task>
     <task id="LOCAL-00001" summary="feat: init">
       <option name="closed" value="true" />
@@ -298,7 +301,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719118912802</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="fix: 重构代码逻辑，抽象出激活函数和损失函数（从这两个视角理解神经网络的本质）">
+      <option name="closed" value="true" />
+      <created>1719150233545</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1719150233545</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -327,7 +338,8 @@
     <MESSAGE value="feat: 修改学习率和目标值" />
     <MESSAGE value="feat: 实现多数据集合训练10000次，并有另一个测试数据集做预测的过程。" />
     <MESSAGE value="feat: 实现神经网络结构，并编写损失函数" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 实现多数据集合训练10000次，并有另一个测试数据集做预测的过程。" />
+    <MESSAGE value="fix: 重构代码逻辑，抽象出激活函数和损失函数（从这两个视角理解神经网络的本质）" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: 重构代码逻辑，抽象出激活函数和损失函数（从这两个视角理解神经网络的本质）" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -1,8 +1,15 @@
-package org.bigcai;
+package org.bigcai.entity;
+
+import org.bigcai.Layer;
+import org.bigcai.NeuralUnit;
+import org.bigcai.entity.helper.ErrorComputer;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.bigcai.NeuralUnit.SCALE;
 
 /**
  * 单层神经网络
@@ -17,31 +24,30 @@ import java.util.List;
  *
  * 引用 https://www.cnblogs.com/subconscious/p/5058741.html#second
  */
-public class SingleLayerNeuralNetwork {
+public class SingleLayerNeuralNetwork extends Layer implements ErrorComputer {
 
     /**
      * 单层神经元列表
      */
-    List<NeuralUnit> layer = new ArrayList<>();
-
-    /**
-     * 输入值缓存
-     */
-    List<BigDecimal> inputFeatureCache = new ArrayList<>();
-
-    /**
-     * 输出值缓存
-     */
-    List<BigDecimal> outputActivationCache = new ArrayList<>();
+    List<NeuralUnit> neuralLayer = new ArrayList<>();
 
     /**
      * 当前层的误差项列表缓存
      */
-    List<BigDecimal> errorOfErrorSourceLayer = new ArrayList<>();
+    List<BigDecimal> layerError = new ArrayList<>();
+
+    /**
+     * 下一层神经网络的指针
+     */
+    SingleLayerNeuralNetwork nextLayer;
 
     public SingleLayerNeuralNetwork(List<NeuralUnit> initNeuralUnitList) {
         if(initNeuralUnitList != null) {
-            layer.addAll(initNeuralUnitList);
+            for (int i = 0; i < initNeuralUnitList.size(); i++) {
+                NeuralUnit neuralUnit = initNeuralUnitList.get(i);
+                neuralUnit.setLayerPositionIndex(i);
+                neuralLayer.add(neuralUnit);
+            }
         }
     }
 
@@ -54,17 +60,52 @@ public class SingleLayerNeuralNetwork {
      * @return
      */
     public List<BigDecimal> compute(List<BigDecimal> features) {
-        inputFeatureCache.clear();
-        for (BigDecimal feature : features) {
-            inputFeatureCache.add(feature);
-        }
-        outputActivationCache.clear();
-        for (NeuralUnit neuralUnitInLayer : layer ) {
+        readyCompute(features);
+        // 迭代计算每一个神经元的激活值
+        for (NeuralUnit neuralUnitInLayer : neuralLayer) {
             // 理论上是并发的
             BigDecimal activationVal = neuralUnitInLayer.compute(inputFeatureCache);
             outputActivationCache.add(activationVal);
         }
         return outputActivationCache;
+    }
+
+    @Override
+    public void computeError(List<BigDecimal> errorSource) {
+        // 重置该层的误差项列表
+        this.layerError.clear();
+
+        // 计算每一个神经元的误差项
+        for (int neuralUnitIndex = 0; neuralUnitIndex < this.neuralLayer.size(); neuralUnitIndex++) {
+            NeuralUnit currentNeuralUnit = this.neuralLayer.get(neuralUnitIndex);
+            currentNeuralUnit.computeError(errorSource);
+            BigDecimal currentNeuralUnitError = currentNeuralUnit.getNeuralUnitError();
+            this.layerError.add(currentNeuralUnitError);
+        }
+    }
+
+    public List<NeuralUnit> getNeuralLayer() {
+        return neuralLayer;
+    }
+
+    public void setNeuralLayer(List<NeuralUnit> neuralLayer) {
+        this.neuralLayer = neuralLayer;
+    }
+
+    public List<BigDecimal> getLayerError() {
+        return layerError;
+    }
+
+    public void setLayerError(List<BigDecimal> layerError) {
+        this.layerError = layerError;
+    }
+
+    public SingleLayerNeuralNetwork getNextLayer() {
+        return nextLayer;
+    }
+
+    public void setNextLayer(SingleLayerNeuralNetwork nextLayer) {
+        this.nextLayer = nextLayer;
     }
 }
 

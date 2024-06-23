@@ -37,17 +37,6 @@ public class MeanSquareError extends ErrorFunction {
     }
 
     /**
-     * 根据损失函数来决定计算规则
-     *
-     * @param activationVal
-     * @return
-     */
-    @Override
-    public BigDecimal computePartialDerivativeZ(BigDecimal activationVal) {
-        return activationVal.multiply(new BigDecimal(1).subtract(activationVal));
-    }
-
-    /**
      * 计算输出层的损失函数向量
      *
      * @param activationVal
@@ -61,7 +50,6 @@ public class MeanSquareError extends ErrorFunction {
             errorSource.add(estimatedValue.subtract(actualValue)
                     .setScale(SCALE, RoundingMode.HALF_UP));
         }
-        System.out.println("loss value: " + errorSource);
         return errorSource;
     }
 
