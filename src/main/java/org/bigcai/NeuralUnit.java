@@ -24,8 +24,6 @@ public class NeuralUnit extends SigmoidActivation implements ErrorComputer {
      */
     public int layerPositionIndex;
 
-    public static final int SCALE = 6;
-
     /**
      * 神经元的特征接收器（一个向量列表, 也可以理解为是上层输出的激活值）
      */
@@ -62,11 +60,9 @@ public class NeuralUnit extends SigmoidActivation implements ErrorComputer {
     public NeuralUnit(List<BigDecimal> weightVectorInit, BigDecimal offset) {
 
         for (BigDecimal weightInit : weightVectorInit) {
-            weightInit = weightInit.setScale(SCALE, RoundingMode.HALF_UP);
             weightVector.add(weightInit);
         }
         // 偏置 b 也是权重
-        offset = offset.setScale(SCALE, RoundingMode.HALF_UP);
         weightVector.add(offset);
     }
 
@@ -85,8 +81,7 @@ public class NeuralUnit extends SigmoidActivation implements ErrorComputer {
         }
 
         // 计算激活值，并输出
-        activationFunctionValue = this.activationFunction(sumZ)
-                .setScale(SCALE, RoundingMode.HALF_UP);
+        activationFunctionValue = this.activationFunction(sumZ);
         return activationFunctionValue;
     }
 

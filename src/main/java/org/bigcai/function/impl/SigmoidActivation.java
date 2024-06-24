@@ -5,9 +5,6 @@ import org.bigcai.util.AdvancedMathUtil;
 import org.bigcai.util.MathUtil;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
-
-import static org.bigcai.NeuralUnit.SCALE;
 
 public class SigmoidActivation extends ActivationFunction {
 
@@ -19,12 +16,12 @@ public class SigmoidActivation extends ActivationFunction {
      */
     @Override
     public BigDecimal activationFunction(BigDecimal sum) {
-        /*BigDecimal exp = AdvancedMathUtil.exp(
-                MathUtil.multiply(new BigDecimal(-1), sum));*/
-        sum = sum.multiply(new BigDecimal(-1))
-                .setScale(SCALE, RoundingMode.HALF_UP);
-        double dou = Math.exp(sum.doubleValue());
-        BigDecimal exp = new BigDecimal(dou);
+
+        sum = MathUtil.multiply(new BigDecimal(-1), sum);
+        // 低精度的计算方法
+        BigDecimal exp = AdvancedMathUtil.exp(sum);
+        // 高精度的计算方法
+        //BigDecimal exp =  new BigDecimal(Math.exp(sum.doubleValue()));
         return MathUtil.divide(new BigDecimal(1),
                 MathUtil.add(new BigDecimal(1), exp));
     }

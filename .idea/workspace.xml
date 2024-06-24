@@ -4,11 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76b31af4-15c6-49ec-9909-50ec0bf4c208" name="Changes" comment="fix: 重构代码逻辑，将计算误差项的过程纳入反向传播中">
+    <list default="true" id="76b31af4-15c6-49ec-9909-50ec0bf4c208" name="Changes" comment="feat: 标记整个算法中用到的数学运算，之后整合到一个Math算术库中，方便重构">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/util/AdvancedMathUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/bigcai/AdvancedMathUtilTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/bigcai/MathUtilTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bigcai/Layer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/Layer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/bigcai/NeuralUnit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/NeuralUnit.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/bigcai/entity/BackpropagationAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/entity/BackpropagationAlgorithm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bigcai/entity/MultiLayerNeuralNetwork.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/entity/MultiLayerNeuralNetwork.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bigcai/entity/SingleLayerNeuralNetwork.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/entity/SingleLayerNeuralNetwork.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/bigcai/function/impl/MeanSquareError.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/function/impl/MeanSquareError.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/bigcai/function/impl/SigmoidActivation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/function/impl/SigmoidActivation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bigcai/util/MathUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/util/MathUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/bigcai/DataSetTrainTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/bigcai/DataSetTrainTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,8 +78,12 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Gradle.neuralnetDemo [:AdvancedMathUtil.main()].executor": "Debug",
+    "Gradle.neuralnetDemo [:AdvancedMathUtilTest.main()].executor": "Run",
     "Gradle.neuralnetDemo [:BackpropagationAlgorithmTest.main()].executor": "Run",
     "Gradle.neuralnetDemo [:DataSetTrainTest.main()].executor": "Run",
+    "Gradle.neuralnetDemo [:MathUtil.main()].executor": "Debug",
+    "Gradle.neuralnetDemo [:MathUtilTest.main()].executor": "Run",
     "Gradle.neuralnetDemo [:MeanSquareErrorTest.main()].executor": "Run",
     "Gradle.neuralnetDemo [:NeuralUnitTest.main()].executor": "Run",
     "Gradle.neuralnetDemo [:SingleLayerNeuralNetworkTest.main()].executor": "Run",
@@ -102,13 +116,26 @@
       <recent name="org.bigcai" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.DataSetTrainTest">
-    <configuration name="BackpropagationAlgorithmTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.bigcai.BackpropagationAlgorithmTest" />
+  <component name="RunManager" selected="Application.MathUtilTest">
+    <configuration name="AdvancedMathUtil" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.bigcai.util.AdvancedMathUtil" />
+      <module name="neuralnetDemo.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.bigcai.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AdvancedMathUtilTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.bigcai.AdvancedMathUtilTest" />
       <module name="neuralnetDemo.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.bigcai.function.impl.*" />
+          <option name="PATTERN" value="org.bigcai.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -129,12 +156,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MeanSquareErrorTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.bigcai.MeanSquareErrorTest" />
-      <module name="neuralnetDemo.test" />
+    <configuration name="MathUtil" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.bigcai.util.MathUtil" />
+      <module name="neuralnetDemo.main" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.bigcai.function.impl.*" />
+          <option name="PATTERN" value="org.bigcai.util.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -142,25 +169,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MultiLayerNeuralNetworkTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.bigcai.MultiLayerNeuralNetworkTest" />
+    <configuration name="MathUtilTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.bigcai.MathUtilTest" />
       <module name="neuralnetDemo.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.bigcai.error.function.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="SingleLayerNeuralNetworkTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.bigcai.SingleLayerNeuralNetworkTest" />
-      <module name="neuralnetDemo.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.bigcai.error.function.*" />
+          <option name="PATTERN" value="org.bigcai.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -170,11 +184,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.MathUtilTest" />
+        <item itemvalue="Application.AdvancedMathUtilTest" />
+        <item itemvalue="Application.MathUtil" />
+        <item itemvalue="Application.AdvancedMathUtil" />
         <item itemvalue="Application.DataSetTrainTest" />
-        <item itemvalue="Application.BackpropagationAlgorithmTest" />
-        <item itemvalue="Application.MeanSquareErrorTest" />
-        <item itemvalue="Application.MultiLayerNeuralNetworkTest" />
-        <item itemvalue="Application.SingleLayerNeuralNetworkTest" />
       </list>
     </recent_temporary>
   </component>
@@ -200,7 +214,9 @@
       <workItem from="1718623102017" duration="7266000" />
       <workItem from="1719058378862" duration="22601000" />
       <workItem from="1719116122663" duration="4500000" />
-      <workItem from="1719146961138" duration="9838000" />
+      <workItem from="1719146961138" duration="10355000" />
+      <workItem from="1719213508842" duration="1645000" />
+      <workItem from="1719239604712" duration="5399000" />
     </task>
     <task id="LOCAL-00001" summary="feat: init">
       <option name="closed" value="true" />
@@ -314,7 +330,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719156351259</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="feat: 标记整个算法中用到的数学运算，之后整合到一个Math算术库中，方便重构">
+      <option name="closed" value="true" />
+      <created>1719157264660</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1719157264660</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -346,7 +370,8 @@
     <MESSAGE value="fix: 重构代码逻辑，抽象出激活函数和损失函数（从这两个视角理解神经网络的本质）" />
     <MESSAGE value="fix: 重构代码逻辑，将计算误差项的算法在神经网络中实现，而非笼统的归为反向传播" />
     <MESSAGE value="fix: 重构代码逻辑，将计算误差项的过程纳入反向传播中" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: 重构代码逻辑，将计算误差项的过程纳入反向传播中" />
+    <MESSAGE value="feat: 标记整个算法中用到的数学运算，之后整合到一个Math算术库中，方便重构" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 标记整个算法中用到的数学运算，之后整合到一个Math算术库中，方便重构" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -359,6 +384,11 @@
           <properties class="java.lang.ArithmeticException" package="java.lang" />
           <option name="timeStamp" value="3" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/bigcai/function/impl/SigmoidActivation.java</url>
+          <line>8</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

@@ -91,15 +91,6 @@ public class DataSetTrainTest {
         //System.out.println("EEEEEEEEE训练后预估值：" + activationVal);
     }
 
-    private static List<BigDecimal> computeError(List<BigDecimal> activationVal, BigDecimal actualValue) {
-        List<BigDecimal> errorSource = new ArrayList<>();
-        for (BigDecimal estimatedValue : activationVal) {
-            errorSource.add(estimatedValue.subtract(actualValue).setScale(SCALE, RoundingMode.HALF_UP));
-        }
-        //System.out.println("loss value: " + errorSource);
-        return errorSource;
-    }
-
     private static MultiLayerNeuralNetwork buildMultiLayerNeuralNetwork() {
         /** 第一层神经网络*/
         List<BigDecimal> weights1 = new ArrayList<>();

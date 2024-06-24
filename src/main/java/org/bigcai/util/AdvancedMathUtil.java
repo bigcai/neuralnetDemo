@@ -6,7 +6,7 @@ public class AdvancedMathUtil {
     /**
      * 泰勒级数的项数量，用于控制精度，默认为 20
      */
-    private static final int TERMS = 20;
+    private static final int TERMS = 60;
     // 使用泰勒展开式计算 e^x
     public static BigDecimal exp(BigDecimal x) {
         BigDecimal result = new BigDecimal("1.0");  // 第0项
