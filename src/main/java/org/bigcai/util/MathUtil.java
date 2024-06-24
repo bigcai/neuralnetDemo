@@ -8,7 +8,7 @@ public class MathUtil {
     /**
      * 算数精度
      */
-    public static final int SCALE = 10;
+    public static final int SCALE = 13;
 
     public static BigDecimal subtract(BigDecimal subtrahend, BigDecimal subtract) {
         return subtrahend.subtract(subtract)
