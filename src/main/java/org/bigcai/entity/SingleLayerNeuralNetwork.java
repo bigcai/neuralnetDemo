@@ -5,11 +5,8 @@ import org.bigcai.NeuralUnit;
 import org.bigcai.entity.helper.ErrorComputer;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.bigcai.NeuralUnit.SCALE;
 
 /**
  * 单层神经网络
@@ -79,7 +76,7 @@ public class SingleLayerNeuralNetwork extends Layer implements ErrorComputer {
         for (int neuralUnitIndex = 0; neuralUnitIndex < this.neuralLayer.size(); neuralUnitIndex++) {
             NeuralUnit currentNeuralUnit = this.neuralLayer.get(neuralUnitIndex);
             currentNeuralUnit.computeError(errorSource);
-            BigDecimal currentNeuralUnitError = currentNeuralUnit.getNeuralUnitError();
+            BigDecimal currentNeuralUnitError = currentNeuralUnit.getNeuralUnitErrorItem();
             this.layerError.add(currentNeuralUnitError);
         }
     }

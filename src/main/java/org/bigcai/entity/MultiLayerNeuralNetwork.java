@@ -25,7 +25,7 @@ import java.util.List;
  * <p>
  *    引用 <a href="https://www.cnblogs.com/subconscious/p/5058741.html#second">神经网络相关资料</a>
  */
-public class MultiLayerNeuralNetwork extends Layer  implements ErrorComputer {
+public class MultiLayerNeuralNetwork extends Layer implements ErrorComputer {
 
     List<SingleLayerNeuralNetwork> singleLayerNeuralNetworkList = new ArrayList<>();
 

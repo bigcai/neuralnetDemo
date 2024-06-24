@@ -4,6 +4,11 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Layer 这是一个抽象的层的概念，
+ * 每一个层包含了输入层和输出层缓存。
+ * 以及层缓存的使用方法
+ */
 public class Layer {
 
     /**

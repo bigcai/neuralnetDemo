@@ -2,18 +2,16 @@ package org.bigcai.entity;
 
 import org.bigcai.NeuralUnit;
 import org.bigcai.function.impl.MeanSquareError;
+import org.bigcai.util.MathUtil;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.bigcai.NeuralUnit.SCALE;
-
 /**
  * 反向传播算法
- *
- *  【理解】 反向传播算法本身就是一个求解 “当前权重矩阵对损失函数的敏感度” 的过程。
+ * <p>
+ * 【理解】 反向传播算法本身就是一个求解 “当前权重矩阵对损失函数的敏感度” 的过程。
  *
  * <p>
  * ## 简单理解为 3 个步骤：
@@ -25,7 +23,7 @@ import static org.bigcai.NeuralUnit.SCALE;
  * 1.计算【整个网络】的误差项矩阵（神经元矩阵相对应）。
  * 2.计算【每个神经元】的新权重向量。
  */
-public class BackpropagationAlgorithm extends MeanSquareError{
+public class BackpropagationAlgorithm extends MeanSquareError {
 
     /**
      * 学习率
@@ -44,10 +42,8 @@ public class BackpropagationAlgorithm extends MeanSquareError{
             SingleLayerNeuralNetwork singleLayer = multiLayer.singleLayerNeuralNetworkList.get(i);
             for (int neuralUnitIndex = 0; neuralUnitIndex < singleLayer.neuralLayer.size(); neuralUnitIndex++) {
                 NeuralUnit neuralUnit = singleLayer.neuralLayer.get(neuralUnitIndex);
-                // 获取当前神经元的误差项（损失值对权重向量积的敏感度）
-                BigDecimal currentNeuralUnitError = singleLayer.layerError.get(neuralUnitIndex);
                 // 计算梯度向量，即损失值对每一个权重的敏感度
-                List<BigDecimal> gradientVector = computeNeuralUnitGradientVector(neuralUnit, currentNeuralUnitError);
+                List<BigDecimal> gradientVector = computeNeuralUnitGradientVector(neuralUnit);
                 // 更新神经元权重
                 updateWeight(neuralUnit, gradientVector, this.learnRate);
             }
@@ -55,18 +51,18 @@ public class BackpropagationAlgorithm extends MeanSquareError{
     }
 
     /**
-     * 【涉及计算 - 乘法】计算制定神经元的梯度向量，即 损失函数对神经元每个权重的敏感度。
+     * (涉及计算 - 乘法)计算制定神经元的梯度向量，即 损失函数对神经元每个权重的敏感度。
      *
      * @param neuralUnit
-     * @param currentNeuralUnitError
      * @return
      */
-    private List<BigDecimal> computeNeuralUnitGradientVector(NeuralUnit neuralUnit, BigDecimal currentNeuralUnitError) {
+    private List<BigDecimal> computeNeuralUnitGradientVector(NeuralUnit neuralUnit) {
         List<BigDecimal> neuralUnitGradientVector = new ArrayList<>();
         for (BigDecimal inputFeature : neuralUnit.getInputFeatureVector()) {
-            BigDecimal neuralUnitGradient = inputFeature.multiply(currentNeuralUnitError);
-            neuralUnitGradientVector.add(neuralUnitGradient);
+            BigDecimal neuralUnitWeightGradient = MathUtil.multiply(inputFeature, neuralUnit.getNeuralUnitErrorItem());
+            neuralUnitGradientVector.add(neuralUnitWeightGradient);
         }
+        // 返回梯度向量（每一个权重对误差的敏感度，该值是通过泰勒展开式推导证明出来的）
         return neuralUnitGradientVector;
     }
 
@@ -82,9 +78,9 @@ public class BackpropagationAlgorithm extends MeanSquareError{
     private void updateWeight(NeuralUnit neuralUnit, List<BigDecimal> gradientVector, BigDecimal learnRate) {
         for (int i = 0; i < neuralUnit.getWeightVector().size(); i++) {
             BigDecimal oldWeight = neuralUnit.getWeightVector().get(i);
-            // 【涉及计算 - 乘法、减法】 计算在给定学习率的权重调参
-            BigDecimal newWeight = oldWeight.subtract(learnRate.multiply(gradientVector.get(i)))
-                    .setScale(SCALE, RoundingMode.HALF_UP);
+            // (涉及计算 - 乘法、减法) 计算在给定学习率的权重调参
+            BigDecimal newWeight = MathUtil.subtract(oldWeight,
+                    MathUtil.multiply(learnRate, gradientVector.get(i)));
             neuralUnit.getWeightVector().set(i, newWeight);
         }
     }

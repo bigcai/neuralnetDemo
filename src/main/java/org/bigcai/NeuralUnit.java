@@ -3,6 +3,7 @@ package org.bigcai;
 import org.bigcai.entity.SingleLayerNeuralNetwork;
 import org.bigcai.entity.helper.ErrorComputer;
 import org.bigcai.function.impl.SigmoidActivation;
+import org.bigcai.util.MathUtil;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -45,7 +46,10 @@ public class NeuralUnit extends SigmoidActivation implements ErrorComputer {
      */
     List<BigDecimal> weightVector = new ArrayList<>();
 
-    BigDecimal neuralUnitError = new BigDecimal(0);
+    /**
+     * 该神经元的误差项
+     */
+    BigDecimal neuralUnitErrorItem = new BigDecimal(0);
 
     /**
      * 下一层神经网络的指针
@@ -73,10 +77,11 @@ public class NeuralUnit extends SigmoidActivation implements ErrorComputer {
         // 神经元读取数据
         readFeature(inputFeatures);
 
-        // 【涉及计算 - 乘法、加法】求和
+        // (涉及计算 - 乘法、加法) 向量积
         sumZ = new BigDecimal(0);
         for (int i = 0; i < inputFeatureVector.size(); i++) {
-            sumZ = sumZ.add(inputFeatureVector.get(i).multiply(weightVector.get(i)));
+            sumZ = MathUtil.add(sumZ,
+                    MathUtil.multiply(inputFeatureVector.get(i), weightVector.get(i)));
         }
 
         // 计算激活值，并输出
@@ -152,29 +157,26 @@ public class NeuralUnit extends SigmoidActivation implements ErrorComputer {
 
     @Override
     public void computeError(List<BigDecimal> errorSource) {
-        BigDecimal currentNeuralUnitError = new BigDecimal(0);
-
         /**
          * 计算出 Z 偏导（每种损失函数的计算方式都不一样）
          */
         BigDecimal partialDerivativeZ = this.computePartialDerivativeZOfActivation(this.activationFunctionValue);
-
         // 读取当了神经元（通过序号指定）与上一次神经元链接的权重。
         List<BigDecimal> weightOfErrorSourceLayerByIndex = readWeightByIndex(errorSource);
+
+        this.neuralUnitErrorItem = new BigDecimal(0);
         for (int i = 0; i < errorSource.size(); i++) {
             BigDecimal layerErrorElement = errorSource.get(i);
             // 每一个误差来源层的输入权重
             BigDecimal weight = weightOfErrorSourceLayerByIndex.get(i);
             // 权重所在的来源层神经的误差项
-            // 【涉及计算 - 乘法】对上一个层误差的贡献度 【需要重点理解】
-            BigDecimal contributionOfError = weight.multiply(layerErrorElement);
-
-            // 【涉及计算 - 乘法】每一个误差来源层的输入权重 * 权重所在的来源层神经的误差项 * 当前神经元的激活值
-            BigDecimal item = contributionOfError.multiply(partialDerivativeZ)
-                    .setScale(SCALE, RoundingMode.HALF_UP);
-            currentNeuralUnitError = currentNeuralUnitError.add(item);
+            // (涉及计算 - 乘法) 对上一个层误差的贡献度 【需要重点理解】
+            BigDecimal contributionOfError = MathUtil.multiply(weight, layerErrorElement);
+            // (涉及计算 - 乘法) 每一个误差来源层的输入权重 * 权重所在的来源层神经的误差项 * 当前神经元的激活值
+            BigDecimal item = MathUtil.multiply(contributionOfError, partialDerivativeZ);
+            // (涉及计算 - 加法) 累加
+            this.neuralUnitErrorItem = MathUtil.add(this.neuralUnitErrorItem, item);
         }
-        neuralUnitError = currentNeuralUnitError.setScale(SCALE, RoundingMode.HALF_UP);
     }
 
     /**
@@ -201,12 +203,12 @@ public class NeuralUnit extends SigmoidActivation implements ErrorComputer {
         return weightOfErrorSourceLayerByIndex;
     }
 
-    public BigDecimal getNeuralUnitError() {
-        return neuralUnitError;
+    public BigDecimal getNeuralUnitErrorItem() {
+        return neuralUnitErrorItem;
     }
 
-    public void setNeuralUnitError(BigDecimal neuralUnitError) {
-        this.neuralUnitError = neuralUnitError;
+    public void setNeuralUnitErrorItem(BigDecimal neuralUnitErrorItem) {
+        this.neuralUnitErrorItem = neuralUnitErrorItem;
     }
 
     public SingleLayerNeuralNetwork getNextLayer() {

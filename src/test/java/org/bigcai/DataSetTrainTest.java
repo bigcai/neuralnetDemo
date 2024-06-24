@@ -10,7 +10,7 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.bigcai.NeuralUnit.SCALE;
+import static org.bigcai.util.MathUtil.SCALE;
 
 public class DataSetTrainTest {
     public static void main(String[] args) {
