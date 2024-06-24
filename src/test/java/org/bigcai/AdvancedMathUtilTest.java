@@ -1,7 +1,6 @@
 package org.bigcai;
 
-import org.bigcai.util.AdvancedMathUtil;
-import org.bigcai.util.MathUtil;
+import org.bigcai.util.ext.AdvancedMathUtil;
 
 import java.math.BigDecimal;
 

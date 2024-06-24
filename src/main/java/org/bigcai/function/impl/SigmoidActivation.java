@@ -1,7 +1,7 @@
 package org.bigcai.function.impl;
 
 import org.bigcai.function.ActivationFunction;
-import org.bigcai.util.AdvancedMathUtil;
+import org.bigcai.util.ext.AdvancedMathUtil;
 import org.bigcai.util.MathUtil;
 
 import java.math.BigDecimal;

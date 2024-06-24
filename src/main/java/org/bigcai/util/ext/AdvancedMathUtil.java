@@ -1,4 +1,6 @@
-package org.bigcai.util;
+package org.bigcai.util.ext;
+
+import org.bigcai.util.MathUtil;
 
 import java.math.BigDecimal;
 

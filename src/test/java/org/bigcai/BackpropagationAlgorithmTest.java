@@ -1,6 +1,5 @@
 package org.bigcai;
 
-import org.bigcai.entity.BackpropagationAlgorithm;
 import org.bigcai.entity.MultiLayerNeuralNetwork;
 import org.bigcai.entity.SingleLayerNeuralNetwork;
 

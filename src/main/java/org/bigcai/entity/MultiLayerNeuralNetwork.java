@@ -94,4 +94,6 @@ public class MultiLayerNeuralNetwork extends Layer implements ErrorComputer {
     public void setErrorSource(List<BigDecimal> errorSource) {
         this.errorSource = errorSource;
     }
+
+
 }

@@ -1,6 +1,7 @@
-package org.bigcai.entity;
+package org.bigcai;
 
-import org.bigcai.NeuralUnit;
+import org.bigcai.entity.MultiLayerNeuralNetwork;
+import org.bigcai.entity.SingleLayerNeuralNetwork;
 import org.bigcai.function.impl.MeanSquareError;
 import org.bigcai.util.MathUtil;
 
@@ -37,11 +38,11 @@ public class BackpropagationAlgorithm extends MeanSquareError {
      */
     public void updateMultiNeuralNetworkWeight(MultiLayerNeuralNetwork multiLayer) {
         // 既然是反向传播，那当然是从最后一层神经元开始计算了
-        for (int i = multiLayer.singleLayerNeuralNetworkList.size() - 1; i >= 0; i--) {
+        for (int i = multiLayer.getSingleLayerNeuralNetworkList().size() - 1; i >= 0; i--) {
 
-            SingleLayerNeuralNetwork singleLayer = multiLayer.singleLayerNeuralNetworkList.get(i);
-            for (int neuralUnitIndex = 0; neuralUnitIndex < singleLayer.neuralLayer.size(); neuralUnitIndex++) {
-                NeuralUnit neuralUnit = singleLayer.neuralLayer.get(neuralUnitIndex);
+            SingleLayerNeuralNetwork singleLayer = multiLayer.getSingleLayerNeuralNetworkList().get(i);
+            for (int neuralUnitIndex = 0; neuralUnitIndex < singleLayer.getNeuralLayer().size(); neuralUnitIndex++) {
+                NeuralUnit neuralUnit = singleLayer.getNeuralLayer().get(neuralUnitIndex);
                 // 计算梯度向量，即损失值对每一个权重的敏感度
                 List<BigDecimal> gradientVector = computeNeuralUnitGradientVector(neuralUnit);
                 // 更新神经元权重
