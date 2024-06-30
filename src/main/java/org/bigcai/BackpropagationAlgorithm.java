@@ -3,7 +3,9 @@ package org.bigcai;
 import org.bigcai.entity.MultiLayerNeuralNetwork;
 import org.bigcai.entity.SingleLayerNeuralNetwork;
 import org.bigcai.function.impl.MeanSquareError;
+import org.bigcai.util.HistoryRecorder;
 import org.bigcai.util.MathUtil;
+import org.bigcai.util.vo.HistoryRecord;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -29,7 +31,7 @@ public class BackpropagationAlgorithm extends MeanSquareError {
     /**
      * 学习率
      */
-    BigDecimal learnRate = new BigDecimal("0.2");
+    BigDecimal learnRate = new BigDecimal("1");
 
     /**
      * 进行一轮权重更新（会用到梯度向量和学习率）
@@ -77,13 +79,19 @@ public class BackpropagationAlgorithm extends MeanSquareError {
      * @param learnRate
      */
     private void updateWeight(NeuralUnit neuralUnit, List<BigDecimal> gradientVector, BigDecimal learnRate) {
+        HistoryRecord historyRecord = new HistoryRecord(neuralUnit.name);
         for (int i = 0; i < neuralUnit.getWeightVector().size(); i++) {
             BigDecimal oldWeight = neuralUnit.getWeightVector().get(i);
+            historyRecord.getOldWeights().add(oldWeight.floatValue());
+
             // (涉及计算 - 乘法、减法) 计算在给定学习率的权重调参
             BigDecimal newWeight = MathUtil.subtract(oldWeight,
                     MathUtil.multiply(learnRate, gradientVector.get(i)));
+            historyRecord.getNewWeights().add(newWeight.floatValue());
+
             neuralUnit.getWeightVector().set(i, newWeight);
         }
+        HistoryRecorder.weightVectorHistory.add(historyRecord);
     }
 
 }

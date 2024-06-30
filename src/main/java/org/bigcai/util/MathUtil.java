@@ -10,6 +10,11 @@ public class MathUtil {
      */
     public static final int SCALE = 13;
 
+    public static BigDecimal add(BigDecimal additive, BigDecimal addition) {
+        return additive.add(addition)
+                .setScale(SCALE, RoundingMode.HALF_UP);
+    }
+
     public static BigDecimal subtract(BigDecimal subtrahend, BigDecimal subtract) {
         return subtrahend.subtract(subtract)
                 .setScale(SCALE, RoundingMode.HALF_UP);
@@ -17,11 +22,6 @@ public class MathUtil {
 
     public static BigDecimal multiply(BigDecimal multiplied, BigDecimal multipliers) {
         return multiplied.multiply(multipliers)
-                .setScale(SCALE, RoundingMode.HALF_UP);
-    }
-
-    public static BigDecimal add(BigDecimal additive, BigDecimal addition) {
-        return additive.add(addition)
                 .setScale(SCALE, RoundingMode.HALF_UP);
     }
 
