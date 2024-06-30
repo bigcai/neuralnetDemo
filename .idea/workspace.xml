@@ -5,19 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="76b31af4-15c6-49ec-9909-50ec0bf4c208" name="Changes" comment="fix: 调整代码包路径">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/util/HistoryRecorder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/util/vo/HistoryRecord.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/org/bigcai/DataSetTrainChartTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/org/bigcai/vo/ChartRender.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/chart.html.beetl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LICENSE" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bigcai/BackpropagationAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/BackpropagationAlgorithm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bigcai/NeuralUnit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/NeuralUnit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bigcai/util/MathUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/util/MathUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bigcai/util/ext/AdvancedMathUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bigcai/util/ext/AdvancedMathUtil.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +49,11 @@
         <option name="argument" value="--tags" />
         <option name="title" value="All" />
       </GitPushTagMode>
+    </option>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -200,10 +194,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.MathUtilTest" />
+        <item itemvalue="Application.DataSetTrainTest" />
         <item itemvalue="Application.DataSetTrainChartTest" />
         <item itemvalue="Application.ChartRender" />
-        <item itemvalue="Application.DataSetTrainTest" />
-        <item itemvalue="Application.MathUtilTest" />
         <item itemvalue="Application.AdvancedMathUtilTest" />
       </list>
     </recent_temporary>
